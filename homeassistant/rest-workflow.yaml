@@ -1,0 +1,70 @@
+- platform: rest
+  resource: http://192.168.178.XXX/status
+  method: GET
+  name: inverter
+  scan_interval: 3600
+  json_attributes:
+    - InputPower
+    - PV1Voltage
+    - PV1InputCurrent
+    - PV1InputPower
+    - OutputPower
+    - GridFrequency
+    - PVEnergyTotal
+    - InverterTemperature
+    - TodayGenerateEnergy
+    - TotalGenerateEnergy
+
+- platform: template
+  sensors:
+    inverter_inputpower:
+      unique_id: '0a7476cc-d6c1-40ba-8ae1-606518c3497f'
+      value_template: "{{ state_attr('sensor.inverter', 'InputPower') }}"
+      device_class: "power"
+      unit_of_measurement: "W"
+      friendly_name: "Input Power"
+    inverter_pv1voltage:
+      unique_id: 'd56f851d-b196-4aed-9965-6c31a53cd18a'
+      value_template: "{{ state_attr('sensor.inverter', 'PV1Voltage') }}"
+      unit_of_measurement: "V"
+      device_class: "voltage"
+    inverter_pv1inputcurrent:
+      unique_id: 'b0e6c0b1-2f3d-49ff-86ee-44f8c04a0e10'
+      value_template: "{{ state_attr('sensor.inverter','PV1InputCurrent') }}"
+      unit_of_measurement: "A"
+      device_class: "Current"
+    inverter_pv1inputpower:
+      unique_id: 'e363cfdd-398c-4602-87b2-894d0b4f447a'
+      value_template: "{{ state_attr('sensor.inverter','PV1InputPower') }}"
+      unit_of_measurement: "W"
+      device_class: "power"
+    inverter_outputpower:
+      unique_id: '989ef68b-ec2d-40e0-80ab-049b7854111c'
+      value_template: "{{ state_attr('sensor.inverter', 'OutputPower') }}"
+      device_class: "energy"
+      unit_of_measurement: "W"
+    inverter_gridfrequency:
+      unique_id: 'ae43485e-ca7e-46cb-96ff-04ee674cac3f'
+      value_template: "{{ state_attr('sensor.inverter', 'GridFrequency') }}"
+      device_class: "frequency"
+      unit_of_measurement: "Hz"
+    inverter_pvenergytotal:
+      unique_id: '5574aaeb-12c0-4646-b656-7599a28e39d3'
+      value_template: "{{ state_attr('sensor.inverter', 'PVEnergyTotal') }}"
+      unit_of_measurement: "kWh"
+      device_class: "energy"
+    inverter_invertertemperature:
+      unique_id: 'd4af77b7-ff09-4e02-b9d6-f592e1082f59'
+      value_template: "{{ state_attr('sensor.inverter', 'InverterTemperature') }}"
+      unit_of_measurement: C
+      device_class: temperature
+    inverter_todaygenerateenergy:
+      unique_id: '93822e6d-44fa-4185-97f9-f3500da28655'
+      value_template: "{{ state_attr('sensor.inverter', 'TodayGenerateEnergy') }}"
+      device_class: "energy"
+      unit_of_measurement: "kWh"
+    inverter_totalgenerateenergy:
+      unique_id: '4968dd1b-a95d-48bb-aad1-83088fd64475'
+      value_template: "{{ state_attr('sensor.inverter', 'TotalGenerateEnergy') }}"
+      device_class: "energy"
+      unit_of_measurement: "kWh"
